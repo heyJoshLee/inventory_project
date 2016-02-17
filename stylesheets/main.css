@@ -1,1 +1,51 @@
 @import url("normalize.css");
+
+html, body {
+  height: 100%;
+  position: relative;
+}
+
+main {
+  padding: 20px;
+  border: 1px solid black;
+  max-width: 800px;
+  margin: 0 auto;
+
+}
+
+fieldset {
+  margin: 0 auto;
+  width: 400px;
+  position: relative;
+}
+
+form {
+  position: relative;
+}
+
+input[type="text"],
+label {
+  margin-bottom: 10px;
+}
+
+form input[type='text'] {
+  float: right;
+  clear: both;
+}
+
+label {
+  float: left;
+}
+
+td {
+  width: 200px;
+}
+
+th,
+td, tr {
+  text-align: right;
+}
+
+[type="submit"] {
+  background-color: red
+}

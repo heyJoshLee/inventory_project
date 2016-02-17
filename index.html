@@ -9,6 +9,54 @@
   </head>
   <body>
     <main>
+      <h1>Inventory</h1>
+      <form action="/" method="post">
+        <fieldset>
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" autofocus> <br />
+
+          <label for="quantity">Quantity</label>
+          <input type="text" name="quantity" id="quantity"><br />
+
+          <label for="buy_price">Buy Price</label>
+          <input type="text" name="buy_price" id="buy_price"><br />
+
+          <label for="sell_price">Sell Price</label>
+          <input type="text" name="sell_price" id="sell_price"><br />
+        </fieldset>
+        <input type="submit" value="Add">
+
+      </form>
+
+      <table id="inventoryItems">
+
+      </table>
     </main>
   </body>
+
+
+  <script id="inventoryItems" type="x-handlebars-template">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Buy Price</th>
+        <th>Sell Price</th>
+      </tr>
+    </thead>
+    <tbody>
+  {{#each inventoryItems}}
+    {{> inventoryItem}}
+  {{/each}}
+    <tbody>
+  </script>
+
+  <script id="inventoryItem" type="x-handlebars-partial">
+    <tr>
+      <td>{{name}}</td>
+      <td>{{quantity}}</td>
+      <td>{{buy_price}}</td>
+      <td>{{sell_price}}</td>
+    </tr>
+  </script>
 </html>
