@@ -19,7 +19,7 @@ fieldset {
   position: relative;
 }
 
-form {
+form#edit {
   position: relative;
 }
 
@@ -28,12 +28,12 @@ label {
   margin-bottom: 10px;
 }
 
-form input[type='text'] {
+form#edit input[type='text'] {
   float: right;
   clear: both;
 }
 
-label {
+form#edit label {
   float: left;
 }
 

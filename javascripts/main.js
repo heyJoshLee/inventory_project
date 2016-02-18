@@ -14,7 +14,7 @@ $(function(){
 
   Handlebars.registerPartial("inventoryItem", $("#inventoryItem").html());
 
-  $("form").on("submit", function(e) {
+  $("#add").on("submit", function(e) {
     e.preventDefault();
     var form_fields = {}
     $(this).find("input[type=text]").each(function() {
@@ -42,6 +42,19 @@ $(function(){
     var current_item = inventoryItems[id];
     $this.html("");
     $this.html(templates.editInventory(current_item));
+  });
+
+  $(document).on("submit", ".edit", function(e) {
+    e.preventDefault();
+    console.log("submitted");
+    var form_fields = {};
+    var id = $(this.find("a").attr("data-id"));
+    $(this).find("input[type=text]").each(function() {
+      form_fields[$(this).attr("id")] = $(this).val();
+    });
+    inventoryItems[id] = form_fields
+    console.log(inventoryItem[id]);
+    render();
   });
   //Handlebars.compile($("[script*=x-handlebars-template"]).html());
   //Handlebars.registerPartial("name", $([script*=x-handlebars-partial"]).html());
