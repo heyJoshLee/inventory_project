@@ -44,6 +44,24 @@ $(function(){
     $this.html(templates.editInventory(current_item));
   });
 
+  $(document).on("blur", ".edit", function(e) {
+    var $e = $(e.currentTarget),
+        input_values = {};
+
+
+        setTimeout(function() {
+          if ($("input:focus").length > 0 ) {
+            console.log("still editing the form");
+          } else {
+            console.log("done editing the form");
+            render();
+            //$(".edit").find("input[type=text]").each(function() {
+            //  input_values[$(this).attr("id")] = $(this).val();
+            //});
+          }
+        }, 0)
+  });
+
   $(document).on("submit", ".edit", function(e) {
     e.preventDefault();
     console.log("submitted");

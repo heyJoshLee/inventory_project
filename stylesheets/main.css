@@ -19,9 +19,6 @@ fieldset {
   position: relative;
 }
 
-form#edit {
-  position: relative;
-}
 
 input[type="text"],
 label {
@@ -48,4 +45,8 @@ td, tr {
 
 [type="submit"] {
   background-color: red
+}
+
+:focus {
+  background: red;
 }
