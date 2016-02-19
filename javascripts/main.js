@@ -1,14 +1,14 @@
 $(function(){
   var templates = {};
 
-  var inventoryItems = [];
+  var inventory = [];
 
   $("[type='x-handlebars-template']").each(function(template) {
     templates[$(this).attr("id")] = Handlebars.compile($(this).html());
   });
 
   function render() {
-    $("#inventoryItems").html(templates.inventoryItems({inventoryItems: inventoryItems}));
+    $("#inventoryItems").html(templates.inventoryItems({inventoryItems: inventory}));
   }
 
 
@@ -20,8 +20,8 @@ $(function(){
     $(this).find("input[type=text]").each(function() {
       form_fields[$(this).attr("id")] = $(this).val();
     });
-    inventoryItems.push(form_fields);
-    inventoryItems[inventoryItems.length - 1]["id"] = inventoryItems.length - 1;
+    inventory.push(form_fields);
+    inventory[inventory.length - 1]["id"] = inventory.length - 1;
     render();
     this.reset();
   });
@@ -29,9 +29,9 @@ $(function(){
   $("table").on("click", ".delete_button", function(e) {
     e.preventDefault();
     var $this = $(this);
-    var check = confirm("Are you sure you want to delete " + inventoryItems[$this.attr("data-id")].name + " ?");
+    var check = confirm("Are you sure you want to delete " + inventory[$this.attr("data-id")].name + " ?");
     if (check) {
-      inventoryItems.splice([$this.attr("data-id"), 1]);
+      inventory.splice([$this.attr("data-id"), 1]);
       render();
     }
   });
@@ -39,7 +39,7 @@ $(function(){
   $("table").on("dblclick", "tr", function(e) {
     var $this = $(this);
     var id = ($this.find("a").attr("data-id"));
-    var current_item = inventoryItems[id];
+    var current_item = inventory[id];
     $this.html("");
     $this.html(templates.editInventory(current_item));
   });
@@ -52,9 +52,17 @@ $(function(){
         setTimeout(function() {
           if ($("input:focus").length > 0 ) {
             console.log("still editing the form");
+
           } else {
-            console.log("done editing the form");
-            render();
+            var current_id = $e.find("a").attr("data-id"),
+                form_fields = {};
+                $(".edit").find("input[type='text']").each(function(input) {
+                  var $this = $(this);
+                  inventory[current_id][$this.attr("data-id")] = $this.val();
+                });
+
+                console.log(inventory[current_id]);
+                render();
             //$(".edit").find("input[type=text]").each(function() {
             //  input_values[$(this).attr("id")] = $(this).val();
             //});
@@ -70,7 +78,7 @@ $(function(){
     $(this).find("input[type=text]").each(function() {
       form_fields[$(this).attr("id")] = $(this).val();
     });
-    inventoryItems[id] = form_fields
+    inventory[id] = form_fields
     console.log(inventoryItem[id]);
     render();
   });
