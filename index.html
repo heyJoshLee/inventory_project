@@ -47,6 +47,9 @@
     </thead>
     <tbody>
   {{#each inventoryItems}}
+    {{# if inventoryItem.active}}
+      <h2> active </h2>
+    {{/if}}
     {{> inventoryItem}}
   {{/each}}
     <tbody>

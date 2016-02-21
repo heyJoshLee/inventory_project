@@ -1,7 +1,6 @@
 $(function(){
-  var templates = {};
-
-  var inventory = [];
+  var templates = {},
+      inventory = [];
 
   $("[type='x-handlebars-template']").each(function(template) {
     templates[$(this).attr("id")] = Handlebars.compile($(this).html());
@@ -22,6 +21,7 @@ $(function(){
     });
     inventory.push(form_fields);
     inventory[inventory.length - 1]["id"] = inventory.length - 1;
+    inventory[inventory.length - 1]["active"] = false;
     render();
     this.reset();
   });
@@ -39,7 +39,8 @@ $(function(){
   $("table").on("dblclick", "tr", function(e) {
     var $this = $(this);
     var id = ($this.find("a").attr("data-id"));
-    var current_item = inventory[id];
+    var current_item = inventory[id],
+        current_item.active = true;
     $this.html("");
     $this.html(templates.editInventory(current_item));
   });
@@ -48,24 +49,23 @@ $(function(){
     var $e = $(e.currentTarget),
         input_values = {};
 
-
         setTimeout(function() {
           if ($("input:focus").length > 0 ) {
             console.log("still editing the form");
 
           } else {
             var current_id = $e.find("a").attr("data-id"),
+                current_item = inventory[current_id],
                 form_fields = {};
                 $(".edit").find("input[type='text']").each(function(input) {
                   var $this = $(this);
                   inventory[current_id][$this.attr("data-id")] = $this.val();
                 });
 
-                console.log(inventory[current_id]);
+                current_item.active = false;
+
                 render();
-            //$(".edit").find("input[type=text]").each(function() {
-            //  input_values[$(this).attr("id")] = $(this).val();
-            //});
+
           }
         }, 0)
   });
@@ -82,7 +82,5 @@ $(function(){
     console.log(inventoryItem[id]);
     render();
   });
-  //Handlebars.compile($("[script*=x-handlebars-template"]).html());
-  //Handlebars.registerPartial("name", $([script*=x-handlebars-partial"]).html());
-  // $("div").html(template_function({key: value}));
+  // TODO fix edit form handlin
 });
